@@ -1,4 +1,11 @@
-# SeniorLab
+<div align="center">
+  <br/>
+  <hr style="border: none; border-top: 1px solid #ED145B; width: 100%; margin: 0 auto"/>
+</div>
+
+![/.github/LOGO-FIAP.png](/.github/LOGO-FIAP.png)
+
+# SeniorLab - Tech 4 Challenge
 
 Simulador de mentoria técnica (incidente em produção, code review sênior,
 decisão de arquitetura) usando a Claude API. Ver `docs/0001-plano-mvp-seniorlab.md`
