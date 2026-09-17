@@ -1,4 +1,11 @@
-# SeniorLab
+<div align="center">
+  <br/>
+  <hr style="border: none; border-top: 1px solid #ED145B; width: 100%; margin: 0 auto"/>
+</div>
+
+![/.github/LOGO-FIAP.png](/.github/LOGO-FIAP.png)
+
+# SeniorLab - Tech 4 Challenge
 
 Simulador de mentoria técnica com IA. O aluno percorre uma **trilha progressiva** de tópicos
 (hoje: Kubernetes) conduzida por um agente que ensina, checa o entendimento e — só depois que o
