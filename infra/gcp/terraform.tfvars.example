@@ -1,0 +1,17 @@
+# Copie para terraform.tfvars e preencha com valores reais. Nunca versione o
+# terraform.tfvars preenchido (segredos ficam aqui em texto plano só localmente,
+# antes de irem para o Secret Manager).
+
+project_id = "seniorlab-demo"
+region     = "southamerica-east1"
+
+environment = "demo"
+domain_name = "seniorlab.exemplo.com"
+
+anthropic_api_key  = "sk-ant-xxxxxxxxxxxxxxxxxxxx"
+postgres_user      = "seniorlab"
+postgres_password  = "troque-esta-senha"
+postgres_db        = "seniorlab"
+
+backend_image  = "southamerica-east1-docker.pkg.dev/seniorlab-demo/seniorlab/backend:latest"
+frontend_image = "southamerica-east1-docker.pkg.dev/seniorlab-demo/seniorlab/frontend:latest"

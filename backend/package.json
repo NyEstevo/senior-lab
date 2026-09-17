@@ -1,0 +1,30 @@
+{
+  "name": "seniorlab-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run migrate && tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json && npm run copy:assets",
+    "copy:assets": "mkdir -p dist/migrations dist/prompts && cp src/migrations/*.sql dist/migrations/ && cp src/prompts/*.txt dist/prompts/",
+    "migrate": "tsx src/migrations/run.ts",
+    "start": "node dist/bootstrap.js migrate && node dist/bootstrap.js server"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "express-async-errors": "^3.1.1",
+    "oci-common": "^2.141.0",
+    "oci-secrets": "^2.140.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.9.0",
+    "@types/pg": "^8.11.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
