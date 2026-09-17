@@ -5,8 +5,10 @@ import {
   buildRevisaoPrompt,
   buildSystemPrompt,
   calibracaoParaNivel,
+  extrairAvaliacaoIncidente,
   extrairFechamentoTopico,
   INSTRUCAO_ENCERRAMENTO,
+  removerMarcadorAvaliacao,
 } from "../agent/prompt.js";
 import { AgentError, chamarAgente, type AgentOptions } from "../agent/client.js";
 import { topicosComStatus } from "./trilhas.js";
@@ -266,7 +268,7 @@ router.post("/sessions/:id/end", async (req, res) => {
   const { id } = req.params;
 
   const { rows } = await pool.query(
-    "SELECT id, status, system_prompt, tipo_sessao, topico_id, usuario_id FROM sessoes WHERE id = $1",
+    "SELECT id, status, system_prompt, cenario_id, tipo_sessao, topico_id, usuario_id FROM sessoes WHERE id = $1",
     [id],
   );
   if (rows.length === 0) return res.status(404).json({ erro: "sessao_nao_encontrada" });
@@ -301,7 +303,29 @@ router.post("/sessions/:id/end", async (req, res) => {
     const resposta = await chamarAgente(sessao.system_prompt, historico, opcoesAgente(req));
     await salvarMensagem(id, "assistant", resposta.conteudo);
 
-    await pool.query("INSERT INTO avaliacoes (sessao_id, conteudo) VALUES ($1, $2)", [id, resposta.conteudo]);
+    // A causa raiz do cenário existia no servidor antes da sessão começar. O
+    // veredito do agente é gravado ao lado dela, nunca no lugar dela — assim
+    // a avaliação é verificável contra o que o cenário definia, não só contra
+    // o texto livre. Cenários sem root_cause (code_review, arquitetura) ficam
+    // com as colunas nulas.
+    let causaRaizEsperada: string | null = null;
+    if (sessao.cenario_id) {
+      const { rows: cenarioRows } = await pool.query(
+        "SELECT variaveis->>'root_cause' AS root_cause FROM cenarios WHERE id = $1",
+        [sessao.cenario_id],
+      );
+      causaRaizEsperada = cenarioRows[0]?.root_cause ?? null;
+    }
+    const veredito = causaRaizEsperada ? extrairAvaliacaoIncidente(resposta.conteudo) : null;
+    if (causaRaizEsperada && !veredito) {
+      console.warn(`[sessions] avaliação de incidente sem marcador [AVALIACAO] (sessão ${id})`);
+    }
+
+    await pool.query(
+      `INSERT INTO avaliacoes (sessao_id, conteudo, causa_raiz_esperada, causa_raiz_encontrada, hipotese_final)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [id, resposta.conteudo, causaRaizEsperada, veredito?.causaRaizEncontrada ?? null, veredito?.hipoteseFinal ?? null],
+    );
     await pool.query("UPDATE sessoes SET status = 'completed', encerrado_em = now() WHERE id = $1", [id]);
 
     if (sessao.tipo_sessao === "simulacao") {
@@ -315,7 +339,12 @@ router.post("/sessions/:id/end", async (req, res) => {
       );
     }
 
-    res.status(200).json({ avaliacao: resposta.conteudo });
+    res.status(200).json({
+      avaliacao: removerMarcadorAvaliacao(resposta.conteudo),
+      veredito: veredito
+        ? { causaRaizEncontrada: veredito.causaRaizEncontrada, hipoteseFinal: veredito.hipoteseFinal, causaRaizEsperada }
+        : null,
+    });
   } catch (err) {
     tratarErroAgente(err, res);
   }

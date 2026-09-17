@@ -52,3 +52,10 @@ Avalie explicitamente:
 - Causa raiz: encontrou ou não? Por quê?
 - O que estudar a seguir: 2-3 tópicos específicos baseados nos gaps que apareceram
 Termine com: "Quer tentar outro cenário ou explorar algum dos pontos levantados?"
+
+Depois dessa frase, emita OBRIGATORIAMENTE uma última linha, sozinha, exatamente
+neste formato (é lida por máquina e comparada com a causa raiz definida acima):
+[AVALIACAO causa_raiz_encontrada=sim|nao hipotese_final="a hipótese final do dev, em uma frase, sem aspas duplas"]
+- causa_raiz_encontrada=sim SOMENTE se a hipótese final do dev corresponde à
+  CAUSA RAIZ definida acima em mecanismo e componente — não basta estar "perto".
+- Se o dev não chegou a formular uma hipótese, use hipotese_final="nenhuma".

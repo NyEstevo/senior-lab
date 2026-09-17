@@ -130,3 +130,29 @@ export function extrairFechamentoTopico(resposta: string): FechamentoTopico | nu
 
   return { nivelDemonstrado: nivel as Nivel, lacunas };
 }
+
+// Marcador emitido ao final da avaliação de incidente. O veredito é do agente,
+// mas fica gravado ao lado da causa raiz que o servidor definiu para o cenário,
+// o que permite auditar a avaliação contra a verdade e não só contra o texto.
+const REGEX_AVALIACAO_INCIDENTE =
+  /\[AVALIACAO\s+causa_raiz_encontrada=(sim|nao|não)\s+hipotese_final="([^"]*)"\]/i;
+
+export interface AvaliacaoIncidente {
+  causaRaizEncontrada: boolean;
+  hipoteseFinal: string;
+}
+
+export function extrairAvaliacaoIncidente(resposta: string): AvaliacaoIncidente | null {
+  const match = resposta.match(REGEX_AVALIACAO_INCIDENTE);
+  if (!match) return null;
+
+  return {
+    causaRaizEncontrada: match[1].toLowerCase() === "sim",
+    hipoteseFinal: match[2].trim(),
+  };
+}
+
+// Remove o marcador do texto que vai para o aluno — ele é para a máquina.
+export function removerMarcadorAvaliacao(resposta: string): string {
+  return resposta.replace(REGEX_AVALIACAO_INCIDENTE, "").trimEnd();
+}
