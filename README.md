@@ -1,11 +1,9 @@
 <div align="center">
   <br/>
-  <hr style="border: none; border-top: 1px solid #ED145B; width: 100%; margin: 0 auto"/>
+  <hr style="border: none; border-top: 1px solid #51ed14; width: 100%; align:center; margin: 0 auto"/>
 </div>
 
-![/.github/LOGO-FIAP.png](/.github/LOGO-FIAP.png)
-
-# SeniorLab - Tech 4 Challenge
+![/.github/senior-lab.png](/docs/img/senior-lab.png)
 
 Simulador de mentoria técnica com IA. O aluno percorre uma **trilha progressiva** de tópicos
 (hoje: Kubernetes) conduzida por um agente que ensina, checa o entendimento e — só depois que o
@@ -166,9 +164,6 @@ Variáveis disponíveis em `.env`:
 
 ## Testando
 
-Roteiro de ponta a ponta. Cada etapa tem um espaço reservado para o print correspondente
-(`docs/img/…`); troque o caminho pelo arquivo que você capturar.
-
 ### 1. Smoke test da infraestrutura
 
 ```bash
@@ -197,9 +192,6 @@ curl -s -o /dev/null -w "%{http_code}\n" localhost:5173
 # esperado: 200
 ```
 
-![Smoke test — docker compose ps e /health](docs/img/01-smoke-test.png)
-<!-- PRINT: terminal com `docker compose ps` mostrando healthy e o retorno do /health -->
-
 ### 2. Configurar a chave de IA
 
 Ao abrir o app pela primeira vez, um modal pede uma chave Anthropic **opcional**:
@@ -211,7 +203,7 @@ Ao abrir o app pela primeira vez, um modal pede uma chave Anthropic **opcional**
 
 O ícone de engrenagem no cabeçalho reabre esse modal a qualquer momento.
 
-![Modal de configuração da chave](docs/img/02-modal-chave.png)
+![Modal de configuração da chave](docs/img/tela-chave.png)
 <!-- PRINT: modal "Configurar acesso à IA" -->
 
 ### 3. Escolher a trilha e o tópico
@@ -227,10 +219,10 @@ O ícone de engrenagem no cabeçalho reabre esse modal a qualquer momento.
 **O que verificar:** em um usuário novo, só *Pods & Deployments* deve estar `Disponível`; os
 demais devem estar `Bloqueado`.
 
-![Tela de domínios](docs/img/03-dominios.png)
+![Tela de domínios](docs/img/tela-grid.png)
 <!-- PRINT: grade de domínios com Kubernetes habilitado -->
 
-![Trilha com tópicos bloqueados](docs/img/04-trilha-inicial.png)
+![Trilha com tópicos bloqueados](docs/img/tela-level.png)
 <!-- PRINT: trilha Kubernetes com o 1º tópico disponível e os demais bloqueados -->
 
 ### 4. Aula: demonstrar domínio do tópico
@@ -261,12 +253,6 @@ docker compose exec postgres psql -U seniorlab -d seniorlab \
 # esperado: status = concluido e nivel_demonstrado preenchido
 ```
 
-![Aula — resposta insuficiente e correção do agente](docs/img/05-aula-resposta-insuficiente.png)
-<!-- PRINT: chat da aula mostrando uma resposta fraca e o agente corrigindo/refazendo a pergunta -->
-
-![Aula — resposta satisfatória e fechamento do tópico](docs/img/06-aula-fechamento.png)
-<!-- PRINT: chat da aula com o resumo final do agente antes de ir para o menu -->
-
 ### 5. Menu pós-tópico
 
 Após concluir, a tela **Tópico concluído** mostra o catálogo completo de modos. Nenhuma opção é
@@ -276,7 +262,7 @@ concluído", "conclua o tópico atual primeiro", "não há próximo tópico na t
 - **Praticar em simulação:** Simulação de incidente · Code review · Decisão de arquitetura.
 - **Outras opções:** Quiz / revisão rápida · Aprofundar no tópico atual · Avançar para o próximo tópico.
 
-![Menu pós-tópico](docs/img/07-menu-pos-topico.png)
+![Menu pós-tópico](docs/img/tela-simulacao.png)
 <!-- PRINT: menu com as simulações liberadas -->
 
 ### 6. Simulação de incidente
@@ -298,15 +284,6 @@ docker compose exec postgres psql -U seniorlab -d seniorlab \
   -c "SELECT causa_raiz_esperada, causa_raiz_encontrada, hipotese_final FROM avaliacoes ORDER BY criado_em DESC LIMIT 1;"
 ```
 
-![Simulação de incidente — abertura](docs/img/08-incidente-abertura.png)
-<!-- PRINT: primeira mensagem do agente com o sintoma -->
-
-![Simulação de incidente — investigação](docs/img/09-incidente-investigacao.png)
-<!-- PRINT: troca de mensagens no meio da investigação -->
-
-![Avaliação do incidente](docs/img/10-incidente-avaliacao.png)
-<!-- PRINT: tela "Avaliação" com o feedback final -->
-
 ### 7. Code review e decisão de arquitetura
 
 Mesmo fluxo da simulação de incidente, com cenários próprios:
@@ -317,19 +294,10 @@ Mesmo fluxo da simulação de incidente, com cenários próprios:
 - **Decisão de arquitetura:** o agente traz um problema com restrições (time, orçamento, prazo) e
   armadilhas. Defenda uma solução; encerre para receber a avaliação.
 
-![Code review](docs/img/11-code-review.png)
-<!-- PRINT: sessão de code review com o snippet apresentado -->
-
-![Decisão de arquitetura](docs/img/12-arquitetura.png)
-<!-- PRINT: sessão de arquitetura -->
-
 ### 8. Quiz / revisão rápida
 
 No menu, **Quiz / revisão rápida** abre uma sessão curta de perguntas sobre os conceitos do tópico
 no nível que o aluno demonstrou. Encerrar gera uma avaliação como nas simulações.
-
-![Quiz / revisão](docs/img/13-revisao.png)
-<!-- PRINT: sessão de revisão -->
 
 ### 9. Encerrar sem concluir e retomar
 
@@ -341,7 +309,7 @@ no nível que o aluno demonstrou. Encerrar gera uma avaliação como nas simula�
 5. Retome por **🔁 Retomar tópico** (nova aula) ou pelo **Histórico** (ícone de recarregar em uma
    sessão `encerrada`, que reabre a mesma conversa).
 
-![Sessão encerrada sem conclusão](docs/img/14-encerrado-sem-concluir.png)
+![Sessão encerrada sem conclusão](docs/img/tela-histarico.png)
 <!-- PRINT: tela "Sessão encerrada" -->
 
 ### 10. Histórico
@@ -349,9 +317,6 @@ no nível que o aluno demonstrou. Encerrar gera uma avaliação como nas simula�
 **Histórico** lista todas as sessões do aluno (tópico · modo/tipo · status). Clicar em uma sessão
 reabre a conversa em modo somente leitura (ou a avaliação, se houver). Sessões `encerradas` podem
 ser retomadas.
-
-![Histórico de sessões](docs/img/15-historico.png)
-<!-- PRINT: lista de sessões com ícones de status -->
 
 ### 11. Testando pela API (curl)
 
