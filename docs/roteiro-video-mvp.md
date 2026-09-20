@@ -1,4 +1,4 @@
-# Roteiro de vídeo — Pitch + Demonstração do MVP (5 min)
+# Roteiro de vídeo — Demonstração do MVP (5 min)
 
 **Projeto:** SeniorLab — simulador de mentoria técnica com IA
 **Hackathon:** Tech $ Change
