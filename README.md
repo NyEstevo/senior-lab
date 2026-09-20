@@ -423,10 +423,6 @@ navegador (ou abra uma janela anônima).
 
 ---
 
-## Deploy em nuvem
+## Integrantes do Grupo
 
-O ambiente local usa os *targets* `dev` dos Dockerfiles. Os *targets* `prod` (backend em Node
-sem dev-deps, frontend estático em nginx) são usados pelo Terraform em
-[infra/oci/README.md](infra/oci/README.md) e [infra/gcp/README.md](infra/gcp/README.md); as
-decisões de arquitetura estão em
-[docs/plan/infra-terraform-seniorlab.md](docs/plan/infra-terraform-seniorlab.md).
+- [Aline Estevo da Silva](https://www.linkedin.com/in/aline-estevo) o projeto foi todo elaborado e executado por mim, os outros integrantes preferiram se retirar.
