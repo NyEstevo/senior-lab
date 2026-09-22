@@ -53,11 +53,14 @@ com um **instrutor sênior simulado**, que:
 4. Só considera o tópico concluído quando o aluno atende aos **critérios de domínio**.
 5. A partir daí, libera simulações em que o aluno é o protagonista sob pressão.
 
+---
 ## Como acessar a ferramenta
 
 A ferramenta está sem certificado válido, por isso precisa seguir o passo a passo
-[Passo 1](docs/img/certicado.png)
-[Passo 2](docs/img/certificado2.png)
+- [Passo 1](docs/img/certicado.png)
+- [Passo 2](docs/img/certificado2.png)
+
+---
 
 ### Como funciona a progressão
 
