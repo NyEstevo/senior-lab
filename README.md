@@ -53,6 +53,12 @@ com um **instrutor sênior simulado**, que:
 4. Só considera o tópico concluído quando o aluno atende aos **critérios de domínio**.
 5. A partir daí, libera simulações em que o aluno é o protagonista sob pressão.
 
+## Como acessar a ferramenta
+
+A ferramenta está sem certificado válido, por isso precisa seguir o passo a passo
+[Passo 1](backend/src/seed/trilhas.ts)
+[Passo 2](backend/src/seed/trilhas.ts)
+
 ### Como funciona a progressão
 
 Essa é a regra central do produto: **o aluno não escolhe livremente o que simular — ele precisa se
