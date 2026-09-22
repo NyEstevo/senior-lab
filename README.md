@@ -56,8 +56,8 @@ com um **instrutor sênior simulado**, que:
 ## Como acessar a ferramenta
 
 A ferramenta está sem certificado válido, por isso precisa seguir o passo a passo
-[Passo 1](backend/src/seed/trilhas.ts)
-[Passo 2](backend/src/seed/trilhas.ts)
+[Passo 1](docs/img/certicado.png)
+[Passo 2](docs/img/certificado2.png)
 
 ### Como funciona a progressão
 
