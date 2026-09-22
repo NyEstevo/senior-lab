@@ -57,8 +57,8 @@ com um **instrutor sênior simulado**, que:
 ## Como acessar a ferramenta
 
 A ferramenta está sem certificado válido, por isso precisa seguir o passo a passo
-- [Passo 1](docs/img/certicado.png)
-- [Passo 2](docs/img/certificado2.png)
+- ![Passo 1](docs/img/certicado.png)
+- ![Passo 2](docs/img/certificado2.png)
 
 ---
 
